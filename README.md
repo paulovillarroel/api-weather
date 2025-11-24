@@ -96,10 +96,11 @@ api-weather/
 ├── .gitignore             # Archivos excluidos de Git
 ├── pyproject.toml         # Configuración de dependencias Python
 ├── uv.lock                # Lock file de dependencias
-├── data/                  # Carpeta para archivos Feather (generados)
-│   ├── temp_data.feather
-│   └── temp_diario.feather
-├── .venv/                 # Entorno virtual Python
+├── data/                  # Carpeta para archivos Feather (generados automáticamente)
+│   ├── .gitkeep           # Mantiene la carpeta en Git
+│   ├── temp_data.feather  # Generado por get-weather.R (no en Git)
+│   └── temp_diario.feather # Generado por get-weather.R (no en Git)
+├── .venv/                 # Entorno virtual Python (no en Git)
 └── README.md
 ```
 
@@ -185,7 +186,6 @@ uv pip list
 
 ### Error: "No se encontraron archivos de datos"
 - Ejecuta primero `Rscript get-weather.R` para generar los archivos Feather
-- Verifica que la carpeta `data/` exista
 
 ### Error al instalar paquete R `arrow`
 ```r
