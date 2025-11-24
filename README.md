@@ -10,6 +10,53 @@ Este proyecto combina lo mejor de R y Python:
 
 Los datos se comparten entre R y Python usando el formato **Feather** (Apache Arrow), optimizado para velocidad y compatibilidad.
 
+## 🚀 Inicio Rápido
+
+### Requisitos previos
+Antes de comenzar, asegúrate de tener instalado:
+- **R >= 4.0** ([Descargar R](https://cran.r-project.org/))
+- **Python >= 3.11** ([Descargar Python](https://www.python.org/downloads/))
+- **Git** ([Descargar Git](https://git-scm.com/downloads))
+
+### Pasos para replicar el proyecto
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/paulovillarroel/api-weather.git
+cd api-weather
+
+# 2. Configurar variables de entorno
+cp .env.example .env
+# Edita .env y agrega tu RAPIDAPI_KEY (ver sección API más abajo)
+
+# 3. Instalar dependencias de R
+# Abre R o RStudio en la carpeta del proyecto y ejecuta:
+```
+
+```r
+install.packages("renv")
+renv::restore()
+```
+
+```bash
+# 4. Instalar dependencias de Python
+# Primero instala uv (si no lo tienes):
+# Windows: powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+# Mac/Linux: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+uv sync
+
+# 5. Obtener datos del clima
+Rscript get-weather.R
+
+# 6. Ejecutar el dashboard
+uv run streamlit run app.py
+```
+
+El dashboard se abrirá en tu navegador en `http://localhost:8501`
+
+---
+
 ## Requisitos
 
 ### R
@@ -194,8 +241,23 @@ Rscript get-weather.R && uv run streamlit run app.py
 # Solo actualizar dependencias Python
 uv sync
 
-# Ver paquetes instalados
+# Ver paquetes Python instalados
 uv pip list
+```
+
+```r
+# Actualizar lockfile de R después de instalar/actualizar paquetes
+renv::snapshot()
+
+# Ver estado de los paquetes R
+renv::status()
+
+# Actualizar un paquete R específico
+install.packages("nombre_paquete")
+renv::snapshot()
+
+# Restaurar paquetes R desde el lockfile
+renv::restore()
 ```
 
 ## Troubleshooting
