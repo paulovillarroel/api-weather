@@ -33,6 +33,11 @@ wheels/
 .RData
 .Rproj.user
 
+# renv (R package management)
+renv/library/
+renv/local/
+renv/staging/
+
 # Data files (Feather)
 data/*.feather
 data/*.parquet

@@ -22,11 +22,25 @@ Los datos se comparten entre R y Python usando el formato **Feather** (Apache Ar
 
 ## Instalación
 
-### 1. Instalar dependencias de R
+### 1. Instalar dependencias de R con renv
 
 ```r
-install.packages(c("httr2", "dplyr", "lubridate", "ggplot2", "arrow"))
+# Instalar renv si no lo tienes
+install.packages("renv")
+
+# Restaurar paquetes del proyecto desde el lockfile
+renv::restore()
 ```
+
+La primera vez que ejecutes `renv::restore()`, descargará e instalará las versiones exactas de los paquetes especificados en `renv.lock`:
+- httr2 (1.2.1)
+- dplyr (1.1.4)
+- lubridate (1.9.4)
+- ggplot2 (4.0.0)
+- arrow (19.0.1.1)
+- Y sus dependencias
+
+**Nota:** renv usa un caché global, por lo que si ya tienes estas versiones instaladas en otros proyectos, solo creará enlaces simbólicos en lugar de descargarlas nuevamente.
 
 ### 2. Instalar dependencias de Python con uv
 
@@ -94,8 +108,14 @@ api-weather/
 ├── .env                   # Variables de entorno (API keys) - NO se sube a Git
 ├── .env.example           # Plantilla de variables de entorno
 ├── .gitignore             # Archivos excluidos de Git
+├── .Rprofile              # Auto-activa renv para R
+├── renv.lock              # Lock file de dependencias R
 ├── pyproject.toml         # Configuración de dependencias Python
-├── uv.lock                # Lock file de dependencias
+├── uv.lock                # Lock file de dependencias Python
+├── renv/                  # Gestión de paquetes R
+│   ├── activate.R         # Script de bootstrap renv
+│   ├── settings.json      # Configuración de renv
+│   └── library/           # Biblioteca privada R (no en Git)
 ├── data/                  # Carpeta para archivos Feather (generados automáticamente)
 │   ├── .gitkeep           # Mantiene la carpeta en Git
 │   ├── temp_data.feather  # Generado por get-weather.R (no en Git)
@@ -118,6 +138,7 @@ api-weather/
 ## Tecnologías
 
 ### R
+- `renv`: Gestión de dependencias y reproducibilidad
 - `httr2`: Cliente HTTP para llamadas a API
 - `dplyr`: Manipulación de datos
 - `lubridate`: Manejo de fechas
