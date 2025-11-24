@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__context7__resolve-library-id",
+      "Bash(Rscript:*)",
+      "WebSearch",
+      "Bash(uv sync:*)",
+      "Bash(uv add:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
